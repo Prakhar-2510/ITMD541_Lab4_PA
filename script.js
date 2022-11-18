@@ -54,8 +54,8 @@ let weather={
       //document.querySelector("day" + (i) + "max").innerText = "Max: " + data.next_days[0].max_temp+ "°C";
       document.querySelector(".weather_forecast_day"+(i+1)).innerText=data.next_days[i].day; 
       document.querySelector(".description"+(i+1)).innerText=data.next_days[i].comment;  
-      document.querySelector(".day"+(i+1)+"max").innerText=data.next_days[i].max_temp.c;  
-      document.querySelector(".day"+(i+1)+"min").innerText=data.next_days[i].min_temp.c;  
+      document.querySelector(".day"+(i+1)+"max").innerText="Max: "+data.next_days[i].max_temp.c;  
+      document.querySelector(".day"+(i+1)+"min").innerText="Min: "+data.next_days[i].min_temp.c;  
       document.querySelector(".weather_forecast_icon"+(i+1)).src=data.next_days[i].iconURL;  
 
     }
@@ -143,7 +143,7 @@ document.querySelector(".search-bar").addEventListener("keyup",function(event){
 });
 
 document.querySelector(".geolocation button").addEventListener("click", () =>{
- 
+    document.querySelector(".search-bar").value="";
     geocode.getLocation();
   
 });
