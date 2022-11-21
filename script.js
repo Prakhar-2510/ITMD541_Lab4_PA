@@ -4,6 +4,7 @@ let weather={
     .then((response)=>{
       
       if (!response.ok) {
+        document.querySelector(".error").innerText="Please check the city name for getting weather details...";
         alert("No weather found.");
         throw new Error("No weather found.");
       }
@@ -17,19 +18,23 @@ let weather={
    displayWeather: function(data){
     if(data.code==0)
     {
-      alert(data.message); 
+      document.querySelector(".error").innerText="The specified locatin does not exist. Please check the city name.";
+     // alert(data.message); 
       //throw new Error("No weather found.");
     }
     if(data.code==1)
     {
-      alert(data.message); 
+      document.querySelector(".error").innerText="Please do not enter any special characters while fetching weather details";
+      //alert(data.message); 
       //throw new Error("No weather found.");
     }
     if(data.code==2)
     {
-      alert(data.message); 
+      document.querySelector(".error").innerText="Search by coordinates not available due to excessive use of this feature. Try after sometime";
+     // alert(data.message); 
       //throw new Error("No weather found.");
     }
+  
     const { region }=data;
     const { dayhour }=data.currentConditions;
     //const { temp }=data.currentConditions;s
@@ -42,12 +47,14 @@ let weather={
     const { comment }=data.currentConditions;
     const { iconURL }=data.currentConditions;
     console.log(region,dayhour,c,precip,humidity,km,comment,iconURL);
+    document.querySelector(".error").innerText="";
     document.querySelector(".city").innerText="Weather in "+ region + " at "+dayhour;
     document.querySelector(".icon").src=iconURL;
     document.querySelector(".temp").innerText=c+"°C";
     document.querySelector(".description").innerText=comment;
     document.querySelector(".humidity").innerText="Humidity: "+humidity;
     document.querySelector(".wind").innerText="Wind Speed: "+km+" km/h";
+    document.querySelector(".weather").classList.remove("loading");
 
     for(i=0;i<7;i++)
     { 
@@ -154,8 +161,10 @@ function onError(error){
   // if any error occur while getting user location then we'll show it in infoText
   //infoTxt.innerText = error.message;
   //infoTxt.classList.add("error");
+  document.querySelector(".error").innerText="There was an error fetching user location from the device..."
   console.log(error.message);
 }
 
+weather.fetchweather("Kansas");
 
 
